@@ -1,0 +1,24 @@
+{
+  "name": "seothemes/child-theme-updater",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "seothemes",
+      "email": "seothemeswp@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4"
+  },
+  "autoload": {
+    "files": [
+      "child-theme-updater.php"
+    ]
+  },
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  }
+}
