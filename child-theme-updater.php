@@ -122,9 +122,8 @@ function after_update( $response, $hook_extra, $result ) {
  * @return string
  */
 function get_theme_backup_path() {
-	$theme   = \get_stylesheet();
-	$dir     = \dirname( \get_stylesheet_directory() );
+	$theme   = \get_stylesheet_directory();
 	$version = \wp_get_theme()->get( 'Version' );
 
-	return "{$dir}/{$theme}-backup-{$version}";
+	return "{$theme}-backup-{$version}";
 }
