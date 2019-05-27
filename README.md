@@ -29,7 +29,7 @@ By default, it will only allow the `vendor` directory of the child theme to be u
 ```php
 add_filter( 'child_theme_updater_skip', 'my_custom_directory' );
 /**
- * Add `core` to the list of updateable directories.
+ * Add `core` to the list of updatable directories.
  *
  * @since 1.0.0
  *
