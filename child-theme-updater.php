@@ -37,20 +37,15 @@ function before_update( $source, $remote_source, $theme_object, $hook_extra ) {
 		return $source;
 	}
 
-	// Setup WP_Filesystem.
-	include_once ABSPATH . 'wp-admin /includes/file.php';
-	\WP_Filesystem();
-	global $wp_filesystem;
-
 	// Create theme backup.
-	$src  = \get_stylesheet_directory();
-	$dest = get_theme_backup_path();
+	$origin = \get_stylesheet_directory();
+	$backup = get_theme_backup_path();
 
-	\wp_mkdir_p( $dest );
-	\copy_dir( $src, $dest, [] );
+	\wp_mkdir_p( $backup );
+	\copy_dir( $origin, $backup, [] );
 
 	// Stop update if backup failed.
-	if ( ! file_exists( $dest . '/functions.php' ) ) {
+	if ( ! file_exists( $backup . '/functions.php' ) ) {
 		$source = false;
 	}
 
@@ -132,55 +127,4 @@ function get_theme_backup_path() {
 	$version = \wp_get_theme()->get( 'Version' );
 
 	return "{$dir}/{$theme}-backup-{$version}";
-}
-
-/**
- * Get Github repository URL from stylesheet header.
- *
- * @since 1.0.0
- *
- * @param string $key Key to retrieve.
- *
- * @return string
- */
-function get_github_data( $key = 'repo' ) {
-	$file = \get_stylesheet_directory() . DIRECTORY_SEPARATOR . 'style.css';
-	$data = \get_file_data( $file, [
-		'repo' => 'Github URI',
-	] );
-
-	return $data[ $key ];
-}
-
-add_action( 'init', __NAMESPACE__ . '\load_plugin_update_checker' );
-/**
- * Maybe load plugin update checker.
- *
- * @since 1.0.0
- *
- * @return void
- */
-function load_plugin_update_checker() {
-	if ( ! class_exists( 'Puc_v4p6_Factory' ) ) {
-		return;
-	}
-
-	$defaults = \apply_filters( 'child_theme_updater', [
-		'repo'   => get_github_data(),
-		'file'   => \get_stylesheet_directory(),
-		'theme'  => \get_stylesheet(),
-		'token'  => '',
-		'branch' => 'master',
-	] );
-
-	$plugin_update_checker = \Puc_v4_Factory::buildUpdateChecker(
-		$defaults['repo'],
-		$defaults['file'],
-		$defaults['theme']
-	);
-	$plugin_update_checker->setBranch( $defaults['branch'] );
-
-	if ( '' !== $defaults['token'] ) {
-		$plugin_update_checker->setAuthentication( $defaults['token'] );
-	}
 }
