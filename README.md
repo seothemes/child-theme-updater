@@ -18,7 +18,14 @@ You could probably manually copy and paste the `child-theme-updater.php` file so
 
 ## Usage
 
-Child Theme Updater is automatically loaded when installed with Composer.
+~~Child Theme Updater is automatically loaded when installed with Composer.~~
+
+Require the `child-theme-updater.php` file in your project, or alternatively instantiate the `ChildThemeUpdater` class with the following code (the class is automatically loaded by Composer):
+
+```php
+$child_theme_updater = new \SeoThemes\ChildThemeUpdater\Updater();
+$child_theme_updater->run();
+```
 
 It does not include an actual theme update checker, for this we recommend [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) for publicly hosted repositories, or Easy Digital Downloads [Software Licensing](https://easydigitaldownloads.com/downloads/software-licensing/) for private, licensed themes.
 
