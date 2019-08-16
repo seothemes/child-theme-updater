@@ -11,9 +11,9 @@
     "php": ">=5.4"
   },
   "autoload": {
-    "files": [
-      "child-theme-updater.php"
-    ]
+    "psr-4": {
+      "SeoThemes\\ChildThemeUpdater\\": "src/"
+    }
   },
   "config": {
     "preferred-install": {
